@@ -1,0 +1,6 @@
+hash: 00a16610bc201f48c43ee8f71a3fe54bb188911ba2f1352ff2fd0fb1afc27650
+updated: 2017-03-08T19:40:56.781419369+09:00
+imports:
+- name: github.com/ruedap/go-alfred
+  version: 43da5a9945937f63f00ecf71042ef4df295ce84d
+testImports: []

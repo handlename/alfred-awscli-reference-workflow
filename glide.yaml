@@ -1,0 +1,3 @@
+package: github.com/handlename/alfred-awscli-reference-workflow
+import:
+- package: github.com/ruedap/go-alfred
