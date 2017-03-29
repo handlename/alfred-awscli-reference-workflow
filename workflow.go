@@ -1,9 +1,13 @@
 package wf
 
 import (
+	"bufio"
 	"encoding/xml"
+	"fmt"
 	"io"
 	"strings"
+
+	alfred "github.com/ruedap/go-alfred"
 )
 
 type SitemapURL struct {
@@ -11,6 +15,76 @@ type SitemapURL struct {
 	Loc     string   `xml:"loc"`
 }
 
+func Search(src io.Reader, keywords []string, out io.Writer) error {
+	cmds, err := filter(src, keywords)
+	if err != nil {
+		return err
+	}
+
+	err = writeAlfredXML(cmds, out)
+	if err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func filter(src io.Reader, keywords []string) (cmds []string, err error) {
+	scanner := bufio.NewScanner(src)
+
+	for scanner.Scan() {
+		cmd := scanner.Text()
+		match := true
+
+		for _, keyword := range keywords {
+			if !strings.Contains(cmd, keyword) {
+				match = false
+				break
+			}
+		}
+
+		if match {
+			cmds = append(cmds, cmd)
+		}
+	}
+
+	return cmds, nil
+}
+
+func writeAlfredXML(cmds []string, out io.Writer) error {
+	res := alfred.NewResponse()
+
+	for _, cmd := range cmds {
+		u := cmdToURL(cmd)
+
+		item := alfred.ResponseItem{
+			Valid:    true,
+			UID:      u,
+			Arg:      u,
+			Title:    cmd,
+			Subtitle: u,
+		}
+
+		res.AddItem(&item)
+	}
+
+	body, err := res.ToXML()
+	if err != nil {
+		return err
+	}
+
+	fmt.Fprint(out, body)
+
+	return nil
+}
+
+func cmdToURL(cmd string) string {
+	parts := strings.Split(cmd, " ")
+
+	return fmt.Sprintf("http://docs.aws.amazon.com/cli/latest/reference/%s.html", strings.Join(parts, "/"))
+}
+
+// Convert converts sitemap.xml to command list.
 func Convert(in io.Reader, out io.Writer) error {
 	dec := xml.NewDecoder(in)
 
