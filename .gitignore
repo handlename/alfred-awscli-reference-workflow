@@ -18,3 +18,4 @@ vendor/
 
 # cmd
 cmd/convert/convert
+cmd/workflow/workflow
