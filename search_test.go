@@ -7,18 +7,12 @@ import (
 	"testing"
 
 	"github.com/handlename/alfred-awscli-reference-workflow"
+	alfred "github.com/ruedap/go-alfred"
 )
 
 type Response struct {
-	XMLName xml.Name       `xml:"items"`
-	Items   []ResponseItem `xml:"item"`
-}
-
-type ResponseItem struct {
-	XMLName  xml.Name `xml:"item"`
-	Arg      string   `xml:"arg,attr"`
-	Title    string   `xml:"title"`
-	Subtitle string   `xml:"subtitle"`
+	alfred.Response
+	Items []alfred.ResponseItem `xml:"item"`
 }
 
 func TestSearchForOneKeyword(t *testing.T) {
