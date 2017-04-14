@@ -29,7 +29,7 @@ func main() {
 	}
 
 	if path == "" {
-		fmt.Fprintf(os.Stderr, "--path is required\n")
+		fmt.Fprintf(os.Stderr, "-path is required\n")
 		os.Exit(1)
 	}
 
