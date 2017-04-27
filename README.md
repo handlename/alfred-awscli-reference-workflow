@@ -11,6 +11,23 @@ It searches commands supported by [AWS CLI](https://aws.amazon.com/cli/?nc1=h_ls
 
 Download [awscli-reference-x.x.x.alfredworkflow](https://github.com/handlename/alfred-awscli-reference-workflow/releases) to your computer and double click it.
 
+## How to use it
+
+The default invoking keyword is `ac`.
+Open Alfred command window, and type `ac {query}`.
+You can give multiple keywords separated by white spaces as `{query}`.
+
+For example:
+
+```
+ac ec2 describe
+```
+
+means, "Search commands which including keyword `ec2` and `describe`."
+
+Choose one in candidates and type `Enter`, command reference will be open in your default web browser.
+To type `Cmd`+`Enter` instead of `Enter`, you can copy command to clipboard.
+
 ## candidates.txt
 
 This workflow search commands from candidates.txt included in .alfredworkflow file.
