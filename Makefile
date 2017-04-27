@@ -1,6 +1,6 @@
 VERSION=${shell cat VERSION}
 CMD=cmd/workflow/workflow
-WORKFLOW=metacpan-$(VERSION).alfredworkflow
+WORKFLOW=awscli-reference-$(VERSION).alfredworkflow
 
 dist/$(WORKFLOW): $(CMD)
 	zip -jv $@ $(CMD) icon.png info.plist
